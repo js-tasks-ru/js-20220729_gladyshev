@@ -5,5 +5,10 @@
  * @returns {object} - returns the new object
  */
 export const pick = (obj, ...fields) => {
-
+  // think it would be better than Object.entries by efficiency
+  let newObj = {};
+  for (let field of fields) {
+    newObj[field] = obj[field];
+  }
+  return newObj;
 };
