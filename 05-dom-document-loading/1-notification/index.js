@@ -1,4 +1,5 @@
 export default class NotificationMessage {
+  static active;
 
   constructor(message, {duration = 0, type = ''} = {}) {
     this.message = message;
@@ -14,12 +15,13 @@ export default class NotificationMessage {
   }
 
   show(element = document.body) {
-    const notifications = element.getElementsByClassName('notification');
-    for (const notification of notifications) {
-      notification.remove();
+    if (NotificationMessage.active) {
+      NotificationMessage.active.remove();
     }
     element.append(this.element);
-    setTimeout(() => this.remove(), this.duration * 0.99);
+    setTimeout(() => this.remove(), this.duration);
+
+    NotificationMessage.active = this;
   }
 
   getTemplate() {
